@@ -302,7 +302,7 @@ void Network :: signup(string email,string username,string password,string age,b
   if(is_publisher)
   {
     Publisher* new_user;
-    new_user = new Publisher(new_id,email,username,password,stoi(age));
+    new_user = new Publisher(new_id,email,username,sha256(password),stoi(age));
     publishers.push_back(new_user);
     is_active_publisher = true ;
     pactive_user = new_user;
@@ -311,7 +311,7 @@ void Network :: signup(string email,string username,string password,string age,b
   else
   {
     Customer* new_user;
-    new_user = new Customer(new_id,email,username,password,stoi(age));
+    new_user = new Customer(new_id,email,username,sha256(password),stoi(age));
     customers.push_back(new_user);
     is_active_publisher = false;
     cactive_user = new_user;
@@ -321,7 +321,7 @@ void Network :: signup(string email,string username,string password,string age,b
 void Network :: login(string username,string password)
 {
   for(int i = 0 ; i < publishers.size() ; i++)
-    if(publishers[i] -> get_username() == username && publishers[i] -> get_password() == password)
+    if(publishers[i] -> get_username() == username && sha256(publishers[i] -> get_password()) == sha256(password))
       {
         pactive_user = publishers[i];
         cactive_user = publishers[i];
@@ -329,7 +329,7 @@ void Network :: login(string username,string password)
         return ;
       }
   for(int i = 0 ; i < customers.size() ; i++)
-    if(customers[i] -> get_username() == username && customers[i] -> get_password() == password)
+    if(customers[i] -> get_username() == username && sha256(customers[i] -> get_password()) == sha256(password))
       {
         cactive_user = customers[i];
         is_active_publisher = false;
