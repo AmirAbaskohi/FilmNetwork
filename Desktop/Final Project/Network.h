@@ -8,6 +8,7 @@
 #include "Publisher.h"
 #include "Customer.h"
 #include "Exception.h"
+#include "Sha256.h"
 
 #define POST "POST"
 #define GET "GET"
