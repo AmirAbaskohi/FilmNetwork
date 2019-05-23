@@ -33,12 +33,8 @@ void Network :: get_user_command()
     throw NotFoundEx();
   if(words_in_line[0] == POST)
     handle_post_commands(words_in_line);
-  else if(words_in_line [0] == PUT)
-    handle_put_commands(words_in_line);
   else if(words_in_line [0] == GET)
     handle_get_commands(words_in_line);
-  else if(words_in_line [0] == DELETE)
-    handle_delete_commands(words_in_line);
   else
     throw NotFoundEx();
 }
@@ -162,6 +158,56 @@ void Network :: handle_post_commands(vector < string > words)
       comment_film(stoi(words[4]),words[6],cactive_user->get_id());
     cout << "OK" << endl;
   }
+  else if(words[1] == "put_films")
+  {
+    if(words.size() < 5 || words.size() > 15)
+      throw NotFoundEx();
+    if(words[2] != "?" || words[3] != "film_id")
+      throw NotFoundEx();
+    else
+    {
+      for(int i = 3;i < words.size() ; i++)
+        if(i % 2 == 1 && !(words[i] != "name" ||
+          words[i] != "year" || words[i] != "length" ||
+          words[i] != "director" || words[i] != "summary" ))
+          throw NotFoundEx();
+      if(cactive_user == NULL)
+        throw PermissionEx();
+     edit_film(words,stoi(words[4]));
+     cout << "OK" << endl;
+    }
+  }
+  else if(words[1] == "delete_films")
+  {
+    if(words.size() != 5 || words[3] != "film_id")
+      throw NotFoundEx();
+    else
+    {
+      if(pactive_user == NULL || is_active_publisher == false)
+        throw PermissionEx();
+      delete_film(stoi(words[4]));
+      cout << "OK" << endl;
+    }
+  }
+  else if(words[1] == "delete_comments")
+  {
+    if(words.size() != 7 || words[3] != "film_id" || words[5] != "comment_id")
+      throw NotFoundEx();
+    else
+    {
+      if(pactive_user == NULL || is_active_publisher == false)
+        throw PermissionEx();
+      delete_comment(stoi(words[4]) ,stoi(words[6]));
+      cout << "OK" << endl;
+    }
+  }
+  else if(words[1] == "logout")
+  {
+    if(words.size() != 2)
+      throw NotFoundEx();
+    logout();
+    cout << "OK" << endl;
+  }
   else
     throw NotFoundEx();
 }
@@ -235,63 +281,22 @@ void Network :: handle_get_commands(vector < string > words)
       pactive_user -> show_followers();
     }
   }
-}
-
-void Network :: handle_put_commands(vector < string > words)
-{
-  if(words[1] == "films")
+  else if(words[1] == "money")
   {
-    if(words.size() < 5 || words.size() > 15)
+    if(words.size() != 2)
       throw NotFoundEx();
-    if(words[2] != "?" || words[3] != "film_id")
-      throw NotFoundEx();
-    else
-    {
-      for(int i = 3;i < words.size() ; i++)
-        if(i % 2 == 1 && !(words[i] != "name" ||
-          words[i] != "year" || words[i] != "length" ||
-          words[i] != "director" || words[i] != "summary" ))
-          throw NotFoundEx();
-      if(cactive_user == NULL)
-        throw PermissionEx();
-     edit_film(words,stoi(words[4]));
-     cout << "OK" << endl;
-    }
+    if(cactive_user == NULL)
+      throw PermissionEx();
+    cout << cactive_user -> show_all_money();
   }
   else
     throw NotFoundEx();
 }
 
-void Network :: handle_delete_commands(vector < string > words)
-{
-  if(words[1] == "film")
-  {
-    if(words.size() != 5 || words[3] != "film_id")
-      throw NotFoundEx();
-    else
-    {
-      if(pactive_user == NULL || is_active_publisher == false)
-        throw PermissionEx();
-      delete_film(stoi(words[4]));
-      cout << "OK" << endl;
-    }
-  }
-  if(words[1] == "comment")
-  {
-    if(words.size() != 7 || words[3] != "film_id" || words[5] != "comment_id")
-      throw NotFoundEx();
-    else
-    {
-      if(pactive_user == NULL || is_active_publisher == false)
-        throw PermissionEx();
-      delete_comment(stoi(words[4]) ,stoi(words[6]));
-      cout << "OK" << endl;
-    }
-  }
-}
-
 void Network :: signup(string email,string username,string password,string age,bool is_publisher)
 {
+  if(cactive_user != NULL)
+    throw BadRequestEx();
   for(int i = 0 ; i < publishers.size() ; i++)
     if(publishers[i] -> get_username() == username)
       throw BadRequestEx();
@@ -320,6 +325,8 @@ void Network :: signup(string email,string username,string password,string age,b
 
 void Network :: login(string username,string password)
 {
+  if(cactive_user != NULL)
+    throw BadRequestEx();
   for(int i = 0 ; i < publishers.size() ; i++)
     if(publishers[i] -> get_username() == username && sha256(publishers[i] -> get_password()) == sha256(password))
       {
@@ -336,6 +343,15 @@ void Network :: login(string username,string password)
         return ;
       }
   throw BadRequestEx();
+}
+
+void Network :: logout()
+{
+  if(cactive_user == NULL)
+    throw BadRequestEx();
+  cactive_user = NULL;
+  pactive_user = NULL;
+  is_active_publisher = false;
 }
 
 void Network :: release_film(string _name,int _year,int _length,int _price,string _summary,string _director)
