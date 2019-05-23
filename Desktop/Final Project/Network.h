@@ -42,6 +42,7 @@ public:
   void reply_to_comment(int film_id,int comment_id,std :: string content);
   void remove_film_from_all(int film_id);
   void logout();
+  int get_all_money_in_network();
 protected:
   std :: vector <Film*>films;
   std :: vector <Customer*>customers;
@@ -49,7 +50,9 @@ protected:
   Customer* cactive_user;
   Publisher* pactive_user;
   bool is_active_publisher;
+  bool is_admin;
   int num_of_removed_films;
+  int all_money;
 };
 
 #endif
