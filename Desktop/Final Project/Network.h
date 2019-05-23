@@ -49,6 +49,7 @@ protected:
   Customer* cactive_user;
   Publisher* pactive_user;
   bool is_active_publisher;
+  int num_of_removed_films;
 };
 
 #endif
