@@ -118,3 +118,8 @@ string Customer :: get_email()
 {
 	return email;
 }
+
+int Customer :: show_all_money()
+{
+	return all_money;
+}
