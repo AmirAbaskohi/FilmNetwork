@@ -11,6 +11,7 @@ Film :: Film(int _id,string _name,int _year,int _length,int _price,string _summa
 	price = _price;
 	summary = _summary;
 	director = _director;
+	num_of_removed_comments = 0;
 }
 
 string Film :: get_name()
@@ -68,7 +69,7 @@ float Film :: get_mean_rate()
 
 void Film :: add_comment(string _content,int user_id)
 {
-	int new_id = comments.size() + num_of_romoved_comments + 1;
+	int new_id = comments.size() + num_of_removed_comments + 1;
 	comments.push_back(new Comment(_content,new_id,user_id));
 }
 
@@ -116,7 +117,7 @@ int Film :: get_id_comment(int index)
 
 void Film :: delete_comment(int index)
 {
-	num_of_romoved_comments++;
+	num_of_removed_comments++;
 	delete comments[index];
 	comments.erase(comments.begin()+index);
 }
