@@ -39,6 +39,7 @@ private:
   std :: string director;
   int id;
   std :: vector<int> scores;
+  int num_of_romoved_comments;
 };
 
 #endif
