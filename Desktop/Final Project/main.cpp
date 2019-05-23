@@ -7,6 +7,8 @@ using namespace std;
 int main()
 {
 	Network network = Network();
+	network.signup("admin@admin.admin","admin","admin","0",false);
+	network.logout();
 	while(true)
 	{
 		try{
