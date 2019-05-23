@@ -356,7 +356,7 @@ void Network :: logout()
 
 void Network :: release_film(string _name,int _year,int _length,int _price,string _summary,string _director)
 {
-  int new_id = films.size() + 1;
+  int new_id = films.size() + num_of_removed_films + 1;
   films.push_back(pactive_user -> release_film(new_id,_name,_year,_length,_price,_summary,_director));
   for(int i = 0; i < pactive_user->customers.size() ; i++)
   {
@@ -543,7 +543,10 @@ void Network :: delete_film(int film_id)
     throw NotFoundEx();
   for(int i = 0 ; i < pactive_user->get_size_publishedfilms() ; i++)
     if(pactive_user->get_id_publishedfilm(i) == film_id)
+    {
+      num_of_removed_films++;
       remove_film_from_all(film_id);
+    }
   throw PermissionEx();
 }
 
