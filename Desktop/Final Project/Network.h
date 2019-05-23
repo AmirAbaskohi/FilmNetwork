@@ -12,16 +12,12 @@
 
 #define POST "POST"
 #define GET "GET"
-#define PUT "PUT"
-#define DELETE "DELETE"
 
 class Network
 {
 public:
   Network();
   void get_user_command();
-  void handle_put_commands(std :: vector < std :: string >words);
-  void handle_delete_commands(std :: vector < std :: string >words);
   void handle_get_commands(std :: vector < std :: string >words);
   void handle_post_commands(std :: vector < std :: string >words);
   void signup(std :: string email,std :: string username,std :: string password,std :: string age,bool is_publisher);
@@ -45,6 +41,7 @@ public:
   void show_purchased(std :: vector < std :: string > words);
   void reply_to_comment(int film_id,int comment_id,std :: string content);
   void remove_film_from_all(int film_id);
+  void logout();
 protected:
   std :: vector <Film*>films;
   std :: vector <Customer*>customers;
