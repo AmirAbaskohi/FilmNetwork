@@ -31,6 +31,7 @@ public:
     int get_length_film(int index);
     int get_mean_rate_film(int index);
     std :: string get_email();
+    int show_all_money();
 protected:
     std :: string email;
     std :: string username;
