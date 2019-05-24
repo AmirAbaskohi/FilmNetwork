@@ -143,3 +143,8 @@ void Publisher :: romove_from_pubfilms(int index)
 {
 	published_films.erase(published_films.begin() + index);
 }
+
+void Publisher :: increase_film_bought(int index)
+{
+	published_films[index]->increase_bought();
+}
