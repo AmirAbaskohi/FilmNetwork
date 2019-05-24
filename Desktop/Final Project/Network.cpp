@@ -676,12 +676,12 @@ void Network :: get_films(string name,int min_rate,int min_year,int price,int ma
   int counter = 1;
   cout << "#. Film Id | Film Name | Film Length | Film Price | Rate | Production Year | Film Director" << endl;
   for(int i = 0 ; i < films.size() ; i++)
-    if(films[i]->get_name() == name &&
-      films[i]->get_director() == director &&
-      films[i]->get_price() == price &&
-      films[i]->get_year() >= min_year &&
-      films[i]->get_year() <= max_year &&
-      films[i]->get_mean_rate() >= min_rate
+    if((films[i]->get_name() == name || name == "") &&
+      (films[i]->get_director() == director || director == "") &&
+      (films[i]->get_price() == price || price == 0) &&
+      (films[i]->get_year() >= min_year || min_year == 0) &&
+      (films[i]->get_year() <= max_year || max_year == 0) &&
+      (films[i]->get_mean_rate() >= min_rate || min_rate == 0)
       )
     {
       cout << counter << ". " << films[i]->get_id() << "| "<<
@@ -727,11 +727,11 @@ void Network :: get_purchased(string name,int min_year,int price,int max_year,st
   int counter = 1;
   cout << "#. Film Id | Film Name | Film Length | Film Price | Rate | Production Year | Film Director" << endl;
   for(int i = 0 ; i < cactive_user -> get_size_films() ; i++)
-    if(cactive_user -> get_name_film(i) == name &&
-      cactive_user -> get_director_film(i) == director &&
-      cactive_user -> get_price_film(i) == price &&
-      cactive_user -> get_year_film(i) >= min_year &&
-      cactive_user -> get_year_film(i) <= max_year
+    if((cactive_user -> get_name_film(i) == name || name =="") &&
+      (cactive_user -> get_director_film(i) == director || director == "") &&
+      (cactive_user -> get_price_film(i) == price || price == 0) &&
+      (cactive_user -> get_year_film(i) >= min_year || min_year == 0) &&
+      (cactive_user -> get_year_film(i) <= max_year || max_year == 0)
       )
     {
       cout << counter << ". " << cactive_user -> get_id_film(i) << "| "<<
