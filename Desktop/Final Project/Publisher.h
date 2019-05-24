@@ -27,6 +27,7 @@ public:
   int min_index(int i);
   void sort_followers(int i);
   void romove_from_pubfilms(int index);
+  void increase_film_bought(int index);
   std :: vector<Customer*>customers;
   std :: vector<Film*>published_films;
 protected:
