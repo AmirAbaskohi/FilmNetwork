@@ -31,12 +31,12 @@ void Publisher :: get_published(string name,int min_rate,int min_year,int price,
 	int counter = 1;
 	cout << "#. Film Id | Film Name | Film Length | Film Price | Rate | Production Year | Film Director" << endl;
 	for(int i = 0 ; i < published_films.size() ; i++)
-		if(published_films[i]->get_name() == name &&
-			published_films[i]->get_director() == director &&
-			published_films[i]->get_price() == price &&
-			published_films[i]->get_year() >= min_year &&
-		 	published_films[i]->get_year() <= max_year &&
-			published_films[i]->get_mean_rate() >= min_rate
+		if((published_films[i]->get_name() == name || name == "") &&
+			(published_films[i]->get_director() == director || director == "") &&
+			(published_films[i]->get_price() == price || price == 0) &&
+			(published_films[i]->get_year() >= min_year || min_year == 0) &&
+		 	(published_films[i]->get_year() <= max_year || max_year == 0) &&
+			(published_films[i]->get_mean_rate() >= min_rate || min_rate == 0)
 			)
 		{
 			cout << counter << ". " << published_films[i]->get_id() << "| "<<
