@@ -33,7 +33,7 @@ public:
   void show_published(std :: vector <std :: string> words);
   void show_comments(Film* film);
   bool has_film(Film *film);
-  void recomm_film();
+  void recomm_film(int index);
   void show_dateils_of_movie(int film_id);
   void get_films(std :: string name,int min_rate,int min_year,int price,int max_year,std :: string director);
   void search_film(std :: vector<std :: string>words);
@@ -43,10 +43,12 @@ public:
   void remove_film_from_all(int film_id);
   void logout();
   int get_all_money_in_network();
+  void update_graph();
 protected:
   std :: vector <Film*>films;
   std :: vector <Customer*>customers;
   std :: vector <Publisher*>publishers;
+  std :: vector<std :: vector <int> > films_graph;
   Customer* cactive_user;
   Publisher* pactive_user;
   bool is_active_publisher;
