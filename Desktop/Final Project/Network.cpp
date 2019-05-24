@@ -382,6 +382,7 @@ void Network :: release_film(string _name,int _year,int _length,int _price,strin
       " with id " + to_string(pactive_user->get_id()) +
       " register new film.");
   }
+  update_graph();
 }
 
 void Network :: follow_a_publisher(int _id)
@@ -423,6 +424,7 @@ void Network :: buy_film(int _id)
     for(int j = 0 ; j < publishers[i]->get_size_publishedfilms() ; j++)
       if(publishers[i]->get_id_publishedfilm(j) == _id)
       {
+        publishers[i]->increase_film_bought(j);
         int amount = publishers[i]->get_price_publishedfilm(j);
         int mean_rate = publishers[i]->get_mean_rate_publishedfilm(j);
         int percent;
@@ -440,6 +442,7 @@ void Network :: buy_film(int _id)
           to_string(cactive_user->get_id())+" buy your film "+
           publishers[i]->get_name_publishedfilm(j)+" with id "+
           to_string(publishers[i]->get_id_publishedfilm(j)));
+        update_graph();
         return;
       }
   throw NotFoundEx();
@@ -564,6 +567,8 @@ void Network :: delete_film(int film_id)
     {
       num_of_removed_films++;
       remove_film_from_all(film_id);
+      update_graph();
+      return;
     }
   throw PermissionEx();
 }
@@ -614,16 +619,17 @@ bool Network :: has_film(Film *film)
   return false;
 }
 
-void Network :: recomm_film()
+void Network :: recomm_film(int index)
 {
   cout << "Recommendation Film" << endl;
   cout << "#. Film Id | Film Name | Film Length | Film Director" << endl;
   int counter = 1;
   bool is_all_checked;
-  int rates[films.size()];
+  int rates[films_graph.size()];
   int* temp_index;
-  for(int i = 0 ; i < films.size() ; i++)
-    rates[i] = (films[i]->get_mean_rate());
+  for(int i = 0 ; i < films_graph.size() ; i++)
+    rates[i] = films_graph[index][i];
+  rates[index] = -1;
   while(counter < 5)
   {
     for(int i = 0 ; films.size() ; i++)
@@ -634,7 +640,7 @@ void Network :: recomm_film()
       }
     if(is_all_checked)
       break;
-    temp_index = max_element(rates,rates+films.size());
+    temp_index = max_element(rates,rates+films_graph.size());
     for(int i = 0 ; i < films.size() ; i++)
       if(temp_index == rates+i)
       {
@@ -665,7 +671,7 @@ void Network :: show_dateils_of_movie(int film_id)
         "Rate "<<films[i]->get_name() <<"\n" <<
         "Price "<<films[i]->get_name() <<"\n\n\n";
       show_comments(films[i]);
-      recomm_film();
+      recomm_film(i);
       return;
     }
   throw NotFoundEx();
@@ -800,4 +806,22 @@ void Network :: reply_to_comment(int film_id,int comment_id,string content)
 int Network :: get_all_money_in_network()
 {
   return all_money;
+}
+
+void Network :: update_graph()
+{
+  int num_of_rows_and_col = films.size();
+  for(int i = 0 ; i < films_graph.size() ; i++)
+    films_graph[i].clear();
+  films_graph.clear();
+  vector<vector< int > > new_graph(num_of_rows_and_col,vector<int>(num_of_rows_and_col,0));
+  for(int i = 0 ; i < num_of_rows_and_col ; i++)
+    for(int j = i ; j < num_of_rows_and_col ; j++)
+    {
+      if(i == j)
+        continue;
+      films_graph[i][j] = films[i]->get_num_of_bought() + films[j]->get_num_of_bought();
+      films_graph[j][i] = films_graph[i][j];
+    }
+  films_graph = new_graph;
 }
