@@ -29,6 +29,8 @@ public:
   int get_id_comment(int index);
   void delete_comment(int index);
   std :: string get_content_comment(int index);
+  void increase_bought();
+  int get_num_of_bought();
   std :: vector<Comment*>comments;
 private:
   std :: string name;
@@ -40,6 +42,7 @@ private:
   int id;
   std :: vector<int> scores;
   int num_of_removed_comments;
+  int num_of_bought;
 };
 
 #endif
