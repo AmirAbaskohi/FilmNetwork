@@ -12,6 +12,7 @@ Film :: Film(int _id,string _name,int _year,int _length,int _price,string _summa
 	summary = _summary;
 	director = _director;
 	num_of_removed_comments = 0;
+	num_of_bought = 0;
 }
 
 string Film :: get_name()
@@ -125,4 +126,14 @@ void Film :: delete_comment(int index)
 string Film :: get_content_comment(int index)
 {
 	return comments[index]->get_content();
+}
+
+void Film :: increase_bought()
+{
+	num_of_bought++;
+}
+
+int Film :: get_num_of_bought()
+{
+	return num_of_bought;
 }
