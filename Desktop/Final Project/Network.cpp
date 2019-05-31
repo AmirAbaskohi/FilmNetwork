@@ -666,10 +666,10 @@ void Network :: show_dateils_of_movie(int film_id)
         "Id "<<films[i]->get_id() <<"\n" <<
         "Director "<<films[i]->get_director() <<"\n" <<
         "Length "<<films[i]->get_length() <<"\n" <<
-        "Year "<<films[i]->get_name() <<"\n" <<
-        "Summary "<<films[i]->get_name() <<"\n" <<
-        "Rate "<<films[i]->get_name() <<"\n" <<
-        "Price "<<films[i]->get_name() <<"\n\n\n";
+        "Year "<<films[i]->get_year() <<"\n" <<
+        "Summary "<<films[i]->get_summary() <<"\n" <<
+        "Rate "<<films[i]->get_mean_rate() <<"\n" <<
+        "Price "<<films[i]->get_price() <<"\n\n\n";
       show_comments(films[i]);
       recomm_film(i);
       return;
