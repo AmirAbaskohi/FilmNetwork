@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+#filmtable {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#filmtable th,#filmtable td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+#filmtable tr:hover {background-color:#f5f5f5;}
+.deletebtn
+{
+  padding: 12px 28px;
+  background-color: #008CBA;
+  border: none;
+  border-radius: 9%;
+}
+.deletebtn:hover
+{
+  background-color: #55CFF8;
+}
+.publishnewbtn a {
+  background-color: red;
+  box-shadow: 0 5px 0 darkred;
+  color: white;
+  padding: 1em 1.5em;
+  position: relative;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.publishnewbtn a:hover {
+  background-color: #ce0606;
+  cursor: pointer;
+}
+
+.publishnewbtn a:active {
+  box-shadow: none;
+  top: 5px;
+}
+.publishnewbtn{
+  margin-top: 3%;
+  margin-left: 43%;
+}
+.filter {
+  width: 190px;
+  box-sizing: border-box;
+  border: 2px solid #aaa;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: white;
+  background-position: 10px 10px; 
+  background-repeat: no-repeat;
+  padding: 12px 20px 12px 40px;
+  -webkit-transition: width 0.4s ease-in-out;
+  transition: width 0.7s ease-in-out;
+  color:black;
+}
+.filter:focus {
+  width: 30%;
+}
+.filterbtn{
+  background-color:#19bc93;
+  border-radius: 4px;
+  border:none;
+  padding: 12px 26px;
+}
+</style>
+</head>
+<body>
+<h2>Published films up to now:</h2>
+<hr>
+<form action='/'>
+<p>Filter by director name:</p>
+<input type='text' name='director' placeholder='Enter director' class='filter'>
+<button type='submit' class='filterbtn'>Filter</button>
+</form>
+<hr>
+<table id="filmtable">
+  <tr>
+    <th>Name</th>
+    <th>Length</th> 
+    <th>Price</th>
+    <th>Rate</th>
+    <th>Year</th>
+    <th>Director</th>
+    <th>Delete Button</th>
+  </tr>
+  <tr>
+    <td>Jill</td>
+    <td>Smith</td>
+    <td>50</td>
+    <td>Jill</td>
+    <td>Smith</td>
+    <td>50</td>
+    <td><button type="submit" class="deletebtn">Delete</button></td>
+  </tr>
+  <tr>
+    <td>Eve</td>
+    <td>Jackson</td>
+    <td>94</td>
+    <td>Eve</td>
+    <td>Jackson</td>
+    <td>94</td>
+    <td><button type="submit" class="deletebtn">Delete</button></td>
+  </tr>
+  <tr>
+    <td>John</td>
+    <td>Doe</td>
+    <td>80</td>
+    <td>John</td>
+    <td>Doe</td>
+    <td>80</td>
+    <td><button type="submit" class="deletebtn">Delete</button></td>
+  </tr>
+</table>
+<div class="publishnewbtn"><a href="https://www.google.com">Publish new</a></div>
+
+</body>
+</html>
