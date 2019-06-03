@@ -17,6 +17,11 @@ bool Network :: get_is_active_publisher()
   return is_active_publisher;
 }
 
+Customer* Network :: get_cactive_user()
+{
+  return cactive_user;
+}
+
 bool Network :: signup(string email,string username,string password,string age,bool is_publisher)
 {
   logout();
