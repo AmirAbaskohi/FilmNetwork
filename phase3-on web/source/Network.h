@@ -38,6 +38,7 @@ public:
   int get_all_money_in_network();
   void update_graph();
   bool get_is_active_publisher();
+  Customer* get_cactive_user();
   int get_all_money_of_current_user();
   void change_all_money_of_current_user(int amount);
   std :: vector < std :: vector < std :: string > > get_allowed_films(std :: string director);
