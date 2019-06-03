@@ -37,9 +37,9 @@ private:
 	Network *network;
 };
 
-class PublishedFilmListHandler : public RequestHandler{
+class FilmListHandler : public RequestHandler{
 public:
-	PublishedFilmListHandler(Network* net);
+	FilmListHandler(Network* net);
 	Response *callback(Request *);
 private:
 	Network *network;
@@ -48,14 +48,6 @@ private:
 class BoughtFilmListHandler : public RequestHandler{
 public:
 	BoughtFilmListHandler(Network *net);
-	Response *callback(Request *);
-private:
-	Network *network;
-};
-
-class AllowedFilmListHandler : public RequestHandler{
-public:
-	AllowedFilmListHandler(Network *net);
 	Response *callback(Request *);
 private:
 	Network *network;
@@ -92,22 +84,5 @@ public:
 private:
 	Network *network;
 };
-
-class PublishedFilterFilmListHandler : public RequestHandler{
-public:
-	PublishedFilterFilmListHandler(Network* net);
-	Response *callback(Request *);
-private:
-	Network *network;
-};
-
-class AllowedFilterFilmListHandler : public RequestHandler{
-public:
-	AllowedFilterFilmListHandler(Network* net);
-	Response *callback(Request *);
-private:
-	Network *network;
-};
-
 
 #endif
