@@ -26,4 +26,9 @@ In case of using phase 3 you need to install catch2 library of AP team of Univer
 
 ### How to run?
 
+After compilation use:
+```
+.\filmnetwork.out
+```
+
 *Made by Amirhossein Abaskohi*
